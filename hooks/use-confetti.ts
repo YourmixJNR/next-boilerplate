@@ -1,6 +1,16 @@
 import confetti from "canvas-confetti";
 import { useCallback } from "react";
 
+/**
+ * custom React hook that returns a function to trigger a confetti animation.
+ *
+ * the returned function, when called, fires a confetti effect with predefined
+ * particle count, spread, origin, and color palette.
+ *
+ * @returns {() => void} a callback function to trigger the confetti animation.
+ *
+ */
+
 const useConfetti = () => {
   const fireConfetti = useCallback(() => {
     confetti({

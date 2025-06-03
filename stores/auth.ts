@@ -2,7 +2,7 @@ import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 
 // types
-type User = {
+type IUser = {
   id: string;
   email: string;
   name: string;
@@ -11,22 +11,22 @@ type User = {
 };
 
 type AuthError = {
-  login: string | null;
-  register: string | null;
-  logout: string | null;
+  loginError: string | null;
+  registerError: string | null;
+  logoutError: string | null;
 };
 
 type AuthLoading = {
-  login: boolean;
-  register: boolean;
-  logout: boolean;
+  isLoginLoading: boolean;
+  isRegisterLoading: boolean;
+  isLogoutLoading: boolean;
 };
 
 type AuthState = {
-  user: User | null;
+  user: IUser | null;
   loading: AuthLoading;
   error: AuthError;
-  setUser: (user: User | null) => void;
+  setUser: (user: IUser | null) => void;
   setLoading: (key: keyof AuthLoading, value: boolean) => void;
   setError: (key: keyof AuthError, message: string | null) => void;
   clearErrors: () => void;
@@ -39,14 +39,14 @@ export const useAuthStore = create(
     (set) => ({
       user: null,
       loading: {
-        login: false,
-        register: false,
-        logout: false,
+        isLoginLoading: false,
+        isRegisterLoading: false,
+        isLogoutLoading: false,
       },
       error: {
-        login: null,
-        register: null,
-        logout: null,
+        loginError: null,
+        registerError: null,
+        logoutError: null,
       },
       setUser: (user) => set({ user }),
       setLoading: (key, value) =>
@@ -59,12 +59,12 @@ export const useAuthStore = create(
         })),
       clearErrors: () =>
         set({
-          error: { login: null, register: null, logout: null },
+          error: { loginError: null, registerError: null, logoutError: null },
         }),
       clearAuth: () =>
         set({
           user: null,
-          error: { login: null, register: null, logout: null },
+          error: { loginError: null, registerError: null, logoutError: null },
         }),
     }),
     {

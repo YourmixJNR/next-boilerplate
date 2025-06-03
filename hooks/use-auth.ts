@@ -9,7 +9,7 @@ export const useAuth = () => {
   const handleLogin = async (email: string, password: string) => {
     try {
       clearErrors();
-      setLoading("login", true);
+      setLoading("isLoginLoading", true);
 
       const { user } = await loginUser(email, password);
       setUser(user);
@@ -20,10 +20,10 @@ export const useAuth = () => {
         error instanceof AxiosError && error.message
           ? error.message
           : "Login failed";
-      setError("login", errorMessage);
+      setError("loginError", errorMessage);
       return { success: false, error: errorMessage };
     } finally {
-      setLoading("login", false);
+      setLoading("isLoginLoading", false);
     }
   };
 
@@ -34,7 +34,7 @@ export const useAuth = () => {
   }) => {
     try {
       clearErrors();
-      setLoading("register", true);
+      setLoading("isRegisterLoading", true);
 
       const { user } = await registerUser(userData);
       setUser(user);
@@ -45,21 +45,22 @@ export const useAuth = () => {
         error instanceof AxiosError && error.message
           ? error.message
           : "Registration failed";
-      setError("register", errorMessage);
+      setError("registerError", errorMessage);
       return { success: false, error: errorMessage };
     } finally {
-      setLoading("register", false);
+      setLoading("isRegisterLoading", false);
     }
   };
 
   const handleLogout = () => {
     clearAuth();
-    localStorage.removeItem("auth-storage"); // clear persisted data
+    // clear persisted data
+    localStorage.removeItem("auth-storage");
   };
 
   return {
-    login: handleLogin,
-    register: handleRegister,
-    logout: handleLogout,
+    handleLogin,
+    handleRegister,
+    handleLogout,
   };
 };

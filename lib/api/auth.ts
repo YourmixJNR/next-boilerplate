@@ -1,33 +1,21 @@
+import { RegisterPayload, AuthResponse, LoginPayload } from "@/types";
 import apiClient from "./api-client";
 
-type LoginResponse = {
-  user: {
-    id: string;
-    email: string;
-    name: string;
-    avatar?: string;
-  };
-  token: string;
-};
-
 export const loginUser = async (
-  email: string,
-  password: string
-): Promise<LoginResponse> => {
-  const response = await apiClient.post("/auth/login", { email, password });
+  payload: LoginPayload
+): Promise<AuthResponse> => {
+  const response = await apiClient.post("/auth/login", payload);
   return response.data;
 };
 
-export const registerUser = async (userData: {
-  email: string;
-  password: string;
-  name: string;
-}): Promise<LoginResponse> => {
-  const response = await apiClient.post("/auth/register", userData);
+export const registerUser = async (
+  payload: RegisterPayload
+): Promise<AuthResponse> => {
+  const response = await apiClient.post("/auth/register", payload);
   return response.data;
 };
 
-export const getCurrentUser = async (): Promise<LoginResponse> => {
+export const getCurrentUser = async (): Promise<IUser> => {
   const response = await apiClient.get("/user");
   return response.data;
 };

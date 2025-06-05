@@ -15,7 +15,7 @@ const LoginForm = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const { success } = await handleLogin(email, password);
+    const { success } = await handleLogin({ email, password });
     if (success) router.push("/dashboard");
   };
 

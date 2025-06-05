@@ -1,17 +1,18 @@
 import { loginUser, registerUser } from "@/lib/api/auth";
 import { useAuthStore } from "@/stores/auth";
+import { LoginPayload, RegisterPayload } from "@/types";
 import { AxiosError } from "axios";
 
 export const useAuth = () => {
   const { setUser, setLoading, setError, clearErrors, clearAuth } =
     useAuthStore();
 
-  const handleLogin = async (email: string, password: string) => {
+  const handleLogin = async (payload: LoginPayload) => {
     try {
       clearErrors();
       setLoading("isLoginLoading", true);
 
-      const { user } = await loginUser(email, password);
+      const { user } = await loginUser(payload);
       setUser(user);
 
       return { success: true };
@@ -27,16 +28,12 @@ export const useAuth = () => {
     }
   };
 
-  const handleRegister = async (userData: {
-    email: string;
-    password: string;
-    name: string;
-  }) => {
+  const handleRegister = async (payload: RegisterPayload) => {
     try {
       clearErrors();
       setLoading("isRegisterLoading", true);
 
-      const { user } = await registerUser(userData);
+      const { user } = await registerUser(payload);
       setUser(user);
 
       return { success: true };

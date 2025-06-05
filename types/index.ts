@@ -1,1 +1,1 @@
-export * from "./env.types";
+export * from "./auth.types";

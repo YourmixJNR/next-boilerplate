@@ -1,4 +1,4 @@
-import { useAuthLoading, useAuthError, useAuthStore } from "@/stores/auth";
+import { useAuthLoading, useAuthError } from "@/stores";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/hooks/use-auth";
 import { useState } from "react";

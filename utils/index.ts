@@ -17,3 +17,9 @@ export * from "./format";
  * @see {@link ./string}
  */
 export * from "./string";
+
+/**
+ * Utility functions for working with class names, especially for Tailwind CSS.
+ * @see {@link ./cn}
+ */
+export * from "./cn";

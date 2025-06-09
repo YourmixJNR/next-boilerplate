@@ -10,3 +10,6 @@ export const COOKIE_CONFIG = {
   path: "/",
   secure: process.env.NODE_ENV === "production",
 } as const;
+
+// theme constants
+export const THEME_KEY = "theme" as const;

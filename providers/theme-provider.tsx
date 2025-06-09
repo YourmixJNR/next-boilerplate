@@ -1,8 +1,6 @@
 "use client";
-
+import { getStoredTheme, setStoredTheme } from "@/lib/storage/local-storage";
 import React, { createContext, useEffect, useState } from "react";
-
-export type Theme = "light" | "dark";
 
 export interface ThemeContextType {
   theme: Theme;
@@ -17,7 +15,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [theme, setTheme] = useState<Theme>("light");
 
   useEffect(() => {
-    const storedTheme = localStorage.getItem("theme") as Theme | null;
+    const storedTheme = getStoredTheme();
     const systemPreference = window.matchMedia("(prefers-color-scheme: dark)")
       .matches
       ? "dark"
@@ -31,7 +29,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     } else {
       document.documentElement.classList.remove("dark");
     }
-    localStorage.setItem("theme", theme);
+    setStoredTheme(theme);
   }, [theme]);
 
   const toggleTheme = () => {

@@ -9,3 +9,5 @@ interface APIError {
   code: number;
   message: string;
 }
+
+type Theme = "light" | "dark";

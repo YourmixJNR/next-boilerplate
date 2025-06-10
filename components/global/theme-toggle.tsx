@@ -3,21 +3,23 @@ import { useTheme } from "@/hooks";
 import { cn } from "@/utils";
 
 function ThemeToggle({ className = "" }: { className?: string }) {
-  const { theme, toggleTheme } = useTheme();
+  const { currentTheme, toggleTheme } = useTheme();
 
   return (
     <button
       onClick={toggleTheme}
       className={cn(
         "p-2 rounded-full transition-colors",
-        theme === "dark"
+        currentTheme === "dark"
           ? "bg-gray-800 text-white hover:bg-gray-700"
           : "bg-gray-100 text-black hover:bg-gray-200",
         className
       )}
-      aria-label={`Switch to ${theme === "light" ? "dark" : "light"} mode`}
+      aria-label={`Switch to ${
+        currentTheme === "light" ? "dark" : "light"
+      } mode`}
     >
-      {theme === "dark" ? (
+      {currentTheme === "dark" ? (
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="20"

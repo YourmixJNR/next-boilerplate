@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { ThemeToggle } from "@/components/global";
 
 export default function Home() {
@@ -21,7 +20,7 @@ export default function Home() {
         </ol>
       </main>
       <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <p className="text-center">built with ♥ from YourmixJNR</p>
+        <p className="text-center">built with ♥ from YourmixJNR_Dev</p>
       </footer>
     </div>
   );

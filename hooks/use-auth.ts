@@ -1,63 +1,139 @@
-import { loginUser, registerUser } from "@/lib/api/auth";
-import { useAuthStore } from "@/stores/auth";
+import { loginUser, registerUser, getCurrentUser } from "@/lib/api/auth";
 import { LoginPayload, RegisterPayload } from "@/types";
+import { useRouter } from "next/navigation";
 import { AxiosError } from "axios";
+import { useState } from "react";
+import { toast } from "sonner";
+import useSWR from "swr";
+import {
+  setAuthTokens,
+  removeAuthTokens,
+  getAccessToken,
+} from "@/lib/storage/cookies";
 
-export const useAuth = () => {
-  const { setUser, setLoading, setError, clearErrors, clearAuth } =
-    useAuthStore();
+// current user hook
+export const useCurrentUser = () => {
+  const token = getAccessToken();
 
-  const handleLogin = async (payload: LoginPayload) => {
-    try {
-      clearErrors();
-      setLoading("isLoginLoading", true);
-
-      const { user } = await loginUser(payload);
-      setUser(user);
-
-      return { success: true };
-    } catch (error) {
-      const errorMessage =
-        error instanceof AxiosError && error.message
-          ? error.message
-          : "Login failed";
-      setError("loginError", errorMessage);
-      return { success: false, error: errorMessage };
-    } finally {
-      setLoading("isLoginLoading", false);
-    }
-  };
-
-  const handleRegister = async (payload: RegisterPayload) => {
-    try {
-      clearErrors();
-      setLoading("isRegisterLoading", true);
-
-      const { user } = await registerUser(payload);
-      setUser(user);
-
-      return { success: true };
-    } catch (error) {
-      const errorMessage =
-        error instanceof AxiosError && error.message
-          ? error.message
-          : "Registration failed";
-      setError("registerError", errorMessage);
-      return { success: false, error: errorMessage };
-    } finally {
-      setLoading("isRegisterLoading", false);
-    }
-  };
-
-  const handleLogout = () => {
-    clearAuth();
-    // clear persisted data
-    localStorage.removeItem("auth-storage");
-  };
+  const {
+    data: user,
+    error,
+    isLoading,
+  } = useSWR(token ? "current-user" : null, getCurrentUser, {
+    shouldRetryOnError: false,
+    revalidateOnFocus: false,
+  });
 
   return {
-    handleLogin,
-    handleRegister,
-    handleLogout,
+    user,
+    error: error?.message || null,
+    isLoading,
+    isAuthenticated: !!user && !error,
   };
+};
+
+// login function
+export const useLogin = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const { mutate } = useSWR("current-user");
+  const router = useRouter();
+
+  const login = async (payload: LoginPayload) => {
+    try {
+      setIsLoading(true);
+      setError(null);
+
+      const { user, accessToken, refreshToken } = await loginUser(payload);
+
+      // show success toast
+      toast.success("Signed in successfully");
+
+      // set auth tokens
+      setAuthTokens(accessToken, refreshToken);
+
+      // update cache and revalidate
+      mutate(user, false);
+
+      // check for returnTo parameter and redirect accordingly
+      const params = new URLSearchParams(window.location.search);
+      const returnTo = params.get("returnTo");
+      router.push(returnTo || "/");
+      return { success: true };
+    } catch (err) {
+      if (err instanceof AxiosError) {
+        const { response } = err;
+        const errorMessage = response?.data?.error || "Sign in failed";
+        toast.error(errorMessage);
+        setError(errorMessage);
+        return { success: false, error: errorMessage };
+      } else {
+        toast.error("An error occurred");
+      }
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  return { login, isLoading, error };
+};
+
+// register function
+export const useRegister = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const { mutate } = useSWR("current-user");
+  const router = useRouter();
+
+  const register = async (payload: RegisterPayload) => {
+    try {
+      setIsLoading(true);
+      setError(null);
+
+      const { user, accessToken, refreshToken } = await registerUser(payload);
+
+      // show success toast
+      toast.success("Signed up successfully");
+
+      // set auth tokens
+      setAuthTokens(accessToken, refreshToken);
+
+      // update cache without revalidation
+      mutate(user, false);
+
+      // check for returnTo parameter and redirect accordingly
+      const params = new URLSearchParams(window.location.search);
+      const returnTo = params.get("returnTo");
+      router.push(returnTo || "/");
+      return { success: true };
+    } catch (err) {
+      if (err instanceof AxiosError) {
+        const { response } = err;
+        const errorMessage = response?.data?.error || "Sign up failed";
+        toast.error(errorMessage);
+        setError(errorMessage);
+        return { success: false, error: errorMessage };
+      } else {
+        toast.error("An error occurred");
+      }
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  return { register, isLoading, error };
+};
+
+// logout function
+export const useLogout = () => {
+  const { mutate } = useSWR("current-user");
+
+  const logout = () => {
+    removeAuthTokens();
+
+    // clear user cache
+    mutate(null, false);
+  };
+
+  return { logout };
 };

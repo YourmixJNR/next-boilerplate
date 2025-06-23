@@ -11,7 +11,7 @@ import { useState } from "react";
  * the initial step is set to 1.
  */
 
-function useStep(): object {
+export function useStep(): object {
   const [currentStep, setCurrentStep] = useState<number>(1);
 
   const nextStep = () => {
@@ -29,5 +29,3 @@ function useStep(): object {
     prevStep,
   };
 }
-
-export default useStep;

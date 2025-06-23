@@ -1,3 +1,4 @@
-export { default as useConfetti } from "./use-confetti";
-export { default as useStep } from "./use-step";
-export { default as useTheme } from "./use-theme";
+export * from "./use-confetti";
+export * from "./use-theme";
+export * from "./use-step";
+export * from "./use-auth";

@@ -11,7 +11,7 @@ import { useCallback } from "react";
  *
  */
 
-const useConfetti = (): (() => void) => {
+export const useConfetti = (): (() => void) => {
   const fireConfetti = useCallback(() => {
     confetti({
       particleCount: 100,
@@ -23,5 +23,3 @@ const useConfetti = (): (() => void) => {
 
   return fireConfetti;
 };
-
-export default useConfetti;

@@ -1,33 +1,25 @@
-import { useAuthLoading, useAuthError } from "@/stores";
-import { useForm } from "react-hook-form";
-import { useRouter } from "next/navigation";
-import { useAuth } from "@/hooks/use-auth";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useLogin } from "@/hooks/use-auth";
+import { useRouter } from "next/navigation";
 import { loginFormSchema } from "@/schema";
+import { useForm } from "react-hook-form";
 import { LoginPayload } from "@/types";
-
-type LoginFormInputs = {
-  email: string;
-  password: string;
-};
 
 const LoginForm = () => {
   const router = useRouter();
-  const { handleLogin } = useAuth();
-  const { isLoginLoading } = useAuthLoading();
-  const { loginError } = useAuthError();
+  const { login, error } = useLogin();
 
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
     reset,
   } = useForm<LoginPayload>({
     resolver: zodResolver(loginFormSchema),
   });
 
   const onSubmit = async (data: LoginPayload) => {
-    const { success } = await handleLogin(data);
+    const success = await login(data);
     if (success) {
       reset();
       router.push("/dashboard");
@@ -52,10 +44,10 @@ const LoginForm = () => {
       />
       {errors.password && <p className="error">{errors.password.message}</p>}
 
-      <button type="submit" disabled={isLoginLoading}>
-        {isLoginLoading ? "Logging in..." : "Login"}
+      <button type="submit" disabled={isSubmitting}>
+        {isSubmitting ? "Logging in..." : "Login"}
       </button>
-      {loginError && <p className="error">{loginError}</p>}
+      {error && <p className="error">{error}</p>}
     </form>
   );
 };

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { AOSInit, ScrollProvider } from "@/animations";
-import { ThemeProvider } from "@/providers";
+import { SWRProvider, ThemeProvider } from "@/providers";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -31,7 +31,9 @@ export default function RootLayout({
       >
         <ScrollProvider>
           <AOSInit />
-          <ThemeProvider>{children}</ThemeProvider>
+          <ThemeProvider>
+            <SWRProvider>{children}</SWRProvider>
+          </ThemeProvider>
         </ScrollProvider>
       </body>
     </html>

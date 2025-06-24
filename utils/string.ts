@@ -1,5 +1,3 @@
-// string utilities
-
 /**
  * Truncates a given text to a specified maximum length and appends "..." if truncated.
  *

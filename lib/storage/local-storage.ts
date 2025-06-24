@@ -1,5 +1,9 @@
 import { THEME_KEY } from "@/config";
 
+/**
+ * Retrieves the current theme from localStorage.
+ * @returns The stored theme ("light" or "dark") or null if not set.
+ */
 export function getTheme(): Theme | null {
   try {
     return (localStorage.getItem(THEME_KEY) as Theme | null) || null;
@@ -9,6 +13,10 @@ export function getTheme(): Theme | null {
   }
 }
 
+/**
+ * Persists the selected theme to localStorage.
+ * @param theme - The theme to store ("light" or "dark").
+ */
 export function setTheme(theme: Theme): void {
   try {
     localStorage.setItem(THEME_KEY, theme);
@@ -18,6 +26,9 @@ export function setTheme(theme: Theme): void {
   }
 }
 
+/**
+ * Removes the stored theme from localStorage.
+ */
 export function removeTheme(): void {
   try {
     localStorage.removeItem(THEME_KEY);
@@ -26,3 +37,5 @@ export function removeTheme(): void {
     throw new Error("Failed to clear theme");
   }
 }
+
+// Add more localStorage utilities below

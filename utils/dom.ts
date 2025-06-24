@@ -1,5 +1,3 @@
-// DOM utilities
-
 /**
  * Scrolls the page to the HTML element with the specified ID.
  * Uses `scrollIntoView()` to bring the element into the viewport if it exists.

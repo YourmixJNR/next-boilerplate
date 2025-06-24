@@ -1,5 +1,3 @@
-// formatting utilities
-
 /**
  * Formats a number as Nigerian Naira currency with 2 decimal places
  *

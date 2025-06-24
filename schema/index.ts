@@ -1,5 +1,15 @@
 // schema/index.ts
 
-// This file exports all schemas from the schema directory
+/**
+ * Authentication-related validation schemas.
+ * @see {@link ./auth.schema}
+ */
 export * from "./auth.schema";
+
+/**
+ * Configuration-related validation schemas.
+ * @see {@link ./config.schema}
+ */
 export * from "./config.schema";
+
+// Add more schema exports below as needed, with similar comments.

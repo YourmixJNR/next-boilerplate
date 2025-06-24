@@ -12,10 +12,16 @@ export interface ThemeContextType {
   toggleTheme: () => void;
 }
 
+/**
+ * React context for theme management.
+ */
 export const ThemeContext = createContext<ThemeContextType | undefined>(
   undefined
 );
 
+/**
+ * ThemeProvider component to wrap your app and provide theme context.
+ */
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [currentTheme, setCurrentTheme] = useState<Theme>("light");
 
@@ -37,6 +43,9 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     setTheme(currentTheme);
   }, [currentTheme]);
 
+  /**
+   * Toggles between light and dark themes.
+   */
   const toggleTheme = () => {
     setCurrentTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
   };

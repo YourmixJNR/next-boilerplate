@@ -23,4 +23,6 @@ apiClient.interceptors.request.use(async (config) => {
   return config;
 });
 
+// Add more API client utilities or interceptors below as needed.
+
 export default apiClient;

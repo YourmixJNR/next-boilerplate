@@ -1,4 +1,4 @@
-// Represents the response returned after authentication
+// Response returned after authentication
 export interface AuthResponse {
   accessToken: string;
   refreshToken: string;

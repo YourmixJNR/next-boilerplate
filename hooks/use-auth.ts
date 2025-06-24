@@ -11,10 +11,7 @@ import {
   getAccessToken,
 } from "@/lib/storage/cookies";
 
-/**
- * Custom hook to fetch the current authenticated user.
- * Uses SWR for caching and revalidation.
- */
+// current user hook
 export const useCurrentUser = () => {
   const token = getAccessToken();
 
@@ -35,10 +32,7 @@ export const useCurrentUser = () => {
   };
 };
 
-/**
- * Custom hook to handle user login.
- * Provides loading and error state, and redirects on success.
- */
+// login function
 export const useLogin = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -84,10 +78,7 @@ export const useLogin = () => {
   return { login, isLoading, error };
 };
 
-/**
- * Custom hook to handle user registration.
- * Provides loading and error state, and redirects on success.
- */
+// register function
 export const useRegister = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -133,10 +124,7 @@ export const useRegister = () => {
   return { register, isLoading, error };
 };
 
-/**
- * Custom hook to handle user logout.
- * Clears authentication tokens and user cache.
- */
+// logout function
 export const useLogout = () => {
   const { mutate } = useSWR("current-user");
 
@@ -149,5 +137,3 @@ export const useLogout = () => {
 
   return { logout };
 };
-
-// Add more authentication-related hooks below

@@ -22,5 +22,3 @@ export const formatNaira = (amount: number) => {
 export function formatDate(date: Date, locale = "en-US") {
   return new Intl.DateTimeFormat(locale).format(date);
 }
-
-// Add more formatting utilities below as needed.

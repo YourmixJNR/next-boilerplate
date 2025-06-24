@@ -1,18 +1,10 @@
 import { z } from "zod";
 
-// Schemas for authentication forms
-
-/**
- * Schema for validating login form data.
- */
 export const loginFormSchema = z.object({
   email: z.string().email("Invalid email address"),
   password: z.string().min(8, "Password must be at least 8 characters"),
 });
 
-/**
- * Schema for validating signup form data.
- */
 export const signupFormSchema = z
   .object({
     name: z.string().min(2, "Name must be at least 2 characters"),
@@ -36,5 +28,3 @@ export const signupFormSchema = z
     message: "Passwords don't match",
     path: ["confirmPassword"],
   });
-
-// Add more authentication-related schemas below as

@@ -2,26 +2,15 @@
 import { getTheme, setTheme } from "@/lib/storage/local-storage";
 import React, { createContext, useEffect, useState } from "react";
 
-/**
- * Provides theme context and toggling functionality to the app.
- * Uses local storage and system preference for initial theme.
- */
-
 export interface ThemeContextType {
   currentTheme: Theme;
   toggleTheme: () => void;
 }
 
-/**
- * React context for theme management.
- */
 export const ThemeContext = createContext<ThemeContextType | undefined>(
   undefined
 );
 
-/**
- * ThemeProvider component to wrap your app and provide theme context.
- */
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [currentTheme, setCurrentTheme] = useState<Theme>("light");
 
@@ -43,9 +32,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     setTheme(currentTheme);
   }, [currentTheme]);
 
-  /**
-   * Toggles between light and dark themes.
-   */
+  //  toggles between light and dark themes.
   const toggleTheme = () => {
     setCurrentTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
   };

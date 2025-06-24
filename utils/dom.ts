@@ -26,5 +26,3 @@ export function throttleClick(callback: () => void, delay = 500) {
     }
   };
 }
-
-// Add more DOM utilities below as needed.

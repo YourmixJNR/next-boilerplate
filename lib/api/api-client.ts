@@ -1,11 +1,6 @@
-import axios from "axios";
-import { env } from "@/config";
 import { getAccessToken } from "../storage/cookies";
-
-/**
- * Axios instance configured with base URL and auth token interceptor.
- * Used for all API requests.
- */
+import { env } from "@/config";
+import axios from "axios";
 
 const apiClient = axios.create({
   baseURL: env.API_URL,
@@ -22,7 +17,5 @@ apiClient.interceptors.request.use(async (config) => {
   }
   return config;
 });
-
-// Add more API client utilities or interceptors below as needed.
 
 export default apiClient;

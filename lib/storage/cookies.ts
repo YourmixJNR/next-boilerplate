@@ -3,11 +3,6 @@ import { AUTH, COOKIE_CONFIG } from "@/config";
 
 const { ACCESS_TOKEN_KEY, REFRESH_TOKEN_KEY } = AUTH;
 
-/**
- * Sets authentication tokens (access and refresh) in cookies.
- * @param accessToken - The access token string.
- * @param refreshToken - The refresh token string.
- */
 export const setAuthTokens = (accessToken: string, refreshToken: string) => {
   try {
     setCookie(null, ACCESS_TOKEN_KEY, accessToken, COOKIE_CONFIG);
@@ -18,10 +13,6 @@ export const setAuthTokens = (accessToken: string, refreshToken: string) => {
   }
 };
 
-/**
- * Retrieves the access token from cookies.
- * @returns The access token string or null if not found.
- */
 export const getAccessToken = () => {
   try {
     const cookies = parseCookies();
@@ -32,10 +23,6 @@ export const getAccessToken = () => {
   }
 };
 
-/**
- * Retrieves the refresh token from cookies.
- * @returns The refresh token string or null if not found.
- */
 export const getRefreshToken = () => {
   try {
     const cookies = parseCookies();
@@ -46,9 +33,6 @@ export const getRefreshToken = () => {
   }
 };
 
-/**
- * Removes authentication tokens (access and refresh) from cookies.
- */
 export const removeAuthTokens = () => {
   try {
     destroyCookie(null, ACCESS_TOKEN_KEY, { path: COOKIE_CONFIG.path });
@@ -58,5 +42,3 @@ export const removeAuthTokens = () => {
     throw new Error("Failed to remove auth tokens");
   }
 };
-
-// Add more cookie utilities below as needed.

@@ -1,16 +1,14 @@
 import { envSchema } from "@/schema";
 
 /**
- * contains environment variables used throughout the application.
+ * Contains environment variables used throughout the application.
+ * Validates and parses environment variables using Zod schema.
  *
- * @constant {Env} env - the environment configuration object.
- *
+ * @constant {Env} env - The environment configuration object.
  */
 
-const env = envSchema.parse({
+export const env = envSchema.parse({
   API_URL: process.env.NEXT_PUBLIC_API_URL,
-  CLOUDINARY_CLOUD_NAME: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
-  CLOUDINARY_UPLOAD_PRESET: process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET,
 });
 
-export default env;
+// Add more environment variable parsing or validation below

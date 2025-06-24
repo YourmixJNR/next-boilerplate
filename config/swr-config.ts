@@ -2,13 +2,16 @@
 import type { SWRConfiguration } from "swr";
 import axios from "axios";
 
-// custom fetcher with error formatting
+/**
+ * Custom fetcher function for SWR.
+ * Uses Axios for HTTP requests and formats errors consistently.
+ */
 const fetcher = async (url: string) => {
   try {
     const response = await axios.get(url);
     return response.data;
   } catch (error) {
-    // format error consistently
+    // Format error consistently
     if (axios.isAxiosError(error)) {
       throw new Error(
         error.response?.data?.message || error.message || "Request failed"
@@ -18,23 +21,28 @@ const fetcher = async (url: string) => {
   }
 };
 
+/**
+ * Global SWR configuration object.
+ * Controls fetcher, error handling, deduplication, and other SWR behaviors.
+ */
 export const swrConfig: SWRConfiguration = {
   fetcher,
-  // disable refetch on window focus
+  // Disable refetch on window focus
   revalidateOnFocus: false,
-  // disable automatic retries
+  // Disable automatic retries
   shouldRetryOnError: false,
-  // deduplicate requests for 2s
+  // Deduplicate requests for 2 seconds
   dedupingInterval: 2000,
-  // retry after 5s (if retries enabled)
+  // Retry after 5 seconds (if retries enabled)
   errorRetryInterval: 5000,
   onError: (error) => {
     // Silent logging (no user-facing toasts)
-    console.error("SWR Error:", error);
-
+    // console.error("SWR Error:", error);
     // Optional: Report to Sentry/LogRocket
     // captureException(error);
   },
-  // default to zero refresh for most queries
+  // Default to zero refresh for most queries
   refreshInterval: 0,
 } as const;
+
+// Add more SWR-related configuration or utilities below as needed.

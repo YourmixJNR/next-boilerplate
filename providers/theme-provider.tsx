@@ -2,6 +2,11 @@
 import { getTheme, setTheme } from "@/lib/storage/local-storage";
 import React, { createContext, useEffect, useState } from "react";
 
+/**
+ * Provides theme context and toggling functionality to the app.
+ * Uses local storage and system preference for initial theme.
+ */
+
 export interface ThemeContextType {
   currentTheme: Theme;
   toggleTheme: () => void;

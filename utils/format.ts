@@ -1,9 +1,9 @@
 // formatting utilities
 
 /**
- * formats a number as Nigerian Naira currency with 2 decimal places
+ * Formats a number as Nigerian Naira currency with 2 decimal places
  *
- * @returns the formatted amount as a string with Nigerian Naira symbol and 2 decimal places
+ * @returns The formatted amount as a string with Nigerian Naira symbol and 2 decimal places
  *
  */
 export const formatNaira = (amount: number) => {
@@ -16,7 +16,7 @@ export const formatNaira = (amount: number) => {
 };
 
 /**
- * formats a given Date object into a locale-specific date string.
+ * Formats a given Date object into a locale-specific date string.
  *
  * @returns The formatted date string according to the specified locale.
  *
@@ -24,3 +24,5 @@ export const formatNaira = (amount: number) => {
 export function formatDate(date: Date, locale = "en-US") {
   return new Intl.DateTimeFormat(locale).format(date);
 }
+
+// Add more formatting utilities below as needed.

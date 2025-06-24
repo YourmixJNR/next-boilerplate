@@ -1,0 +1,56 @@
+# Next.js Boilerplate Ideas (Raw Backlog)
+
+## 🚀 Core Features
+
+- [ ] Extend Tailwind CSS configuration
+
+  - [ ] Add custom colors/fonts
+  - [ ] Optimize `tailwind.config.js`
+
+- [ ] Migrate from npm to Bun
+  - [ ] Install Bun + update docs
+  - [ ] Convert npm scripts to Bun
+  - [ ] Test compatibility
+
+## ⚙️ Configuration
+
+- [ ] Add meta/config files
+
+  - [ ] `manifest.json` (PWA)
+  - [ ] `sitemap.xml` (SEO)
+  - [ ] `robots.txt`
+
+- [ ] Set up CI/CD pipeline
+  - [ ] GitHub Actions for testing/deployment
+
+## 📚 Documentation
+
+- [ ] Update README.md
+  - [ ] Add setup instructions
+  - [ ] Document env variables
+
+## 🧪 Testing
+
+- [ ] Implement unit/integration tests
+  - [ ] Test utility functions
+  - [ ] Test components
+
+## ♿ Accessibility & Performance
+
+- [ ] Improve accessibility (a11y audit)
+- [ ] Optimize performance
+  - [ ] Analyze bundle size
+  - [ ] Code splitting
+
+## 🔮 Future Ideas (Backlog)
+
+- [ ] Add Storybook
+- [ ] Internationalization (i18n)
+- [ ] Experiment with React Server Components
+
+## 🔄 Ongoing & Future Ideas
+
+### 💡 How to add tasks:
+
+1. Propose new TODOs here (via PR or Issue).
+2. Once accepted, they’ll be moved to relevant categories above.
